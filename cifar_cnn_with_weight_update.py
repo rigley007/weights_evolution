@@ -19,19 +19,25 @@ import numpy as np
 
 batch_size = 32
 num_classes = 10
-epochs = 2
+epochs = 5
 data_augmentation = True
 num_predictions = 20
 save_dir = os.path.join(os.getcwd(), 'saved_models')
 model_name = 'keras_cifar10_trained_model.h5'
 
 
-num_callback = 6
-l_wei = np.array([])
-temp_a = np.array([])
-weights_log = np.array([])
-l = [l_wei]
+import pickle
+filename = 'finalized_reg_model.sav'
+prediction_model = pickle.load(open(filename, 'rb'))
 
+
+num_callback = 6
+l = np.array([])
+temp_a = np.array([])
+
+weights_log = np.array([])
+
+weight_hist_length = 5
 
 
 # The data, split between train and test sets:
@@ -67,14 +73,34 @@ model.add(Dropout(0.5))
 model.add(Dense(num_classes))
 model.add(Activation('softmax'))
 
-"""
+
 def weight_prediciton():
     global l
-    l.append(model.get_weights())
+    if l.shape[0] == 0:
+        l = np.append(l, model.get_weights())
+    else:
+        l = np.vstack([l, model.get_weights()])
 
-"""
 
-update_weights = LambdaCallback(on_epoch_end=lambda batch, logs: l.append(model.get_weights()))
+    if l.shape[0] == weight_hist_length:
+        temp_weight_pool = np.array([])
+        for i in range(weight_hist_length):
+            temp_sub_weight_pool = np.array([])
+            for j in range(l.shape[1]):
+                temp_sub_weight_pool=np.append(temp_sub_weight_pool,l[i][j].flatten())
+
+            if i==0:
+                temp_weight_pool = np.append(temp_weight_pool, temp_sub_weight_pool)
+            else:
+                temp_weight_pool = np.vstack([temp_weight_pool, temp_sub_weight_pool])
+
+        print(temp_weight_pool.shape)
+
+
+
+
+
+update_weights = LambdaCallback(on_epoch_end=lambda batch, logs: weight_prediciton())
 
 # initiate RMSprop optimizer
 #opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
