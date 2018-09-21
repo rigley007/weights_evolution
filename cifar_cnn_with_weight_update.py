@@ -82,7 +82,7 @@ def weight_prediciton():
     else:
         l = np.vstack([l, model.get_weights()])
 
-    '''
+
     if l.shape[0] == weight_hist_length:
         temp_weight_pool = np.array([])
         for i in range(weight_hist_length):
@@ -110,7 +110,7 @@ def weight_prediciton():
 
         model.set_weights(l[0])
         l = np.array([])
-    '''
+
 
 
 
@@ -198,7 +198,7 @@ print('Test accuracy:', scores[1])
 import pickle
 
 # save:
-f = open('cifar_doc_agu_org_history.pckl', 'wb')
+f = open('cifar_doc_agu_pred_std01_history.pckl', 'wb')
 pickle.dump(hist.history, f)
 f.close()
 
