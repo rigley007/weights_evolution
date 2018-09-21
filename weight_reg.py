@@ -12,7 +12,7 @@ from sklearn.model_selection import train_test_split
 mat = scipy.io.loadmat("C:\\Users\Rui\.PyCharm2018.2\config\scratches\mnistdnn_300_sgd.mat")
 weights_log_t_dnn=mat["weights_log_t"]
 weights_log_t_del_dnn = np.delete(weights_log_t_dnn, slice(0, 668572), 0)
-weights_log_t_del_dnn=normalize(weights_log_t_del_dnn, norm='l2')
+#weights_log_t_del_dnn=normalize(weights_log_t_del_dnn, norm='l2')
 weights_log_t_del_dnn=weights_log_t_del_dnn.transpose()
 for x in range(290):
     temp_m = weights_log_t_del_dnn[x:x + 10]
@@ -27,7 +27,7 @@ mat = scipy.io.loadmat("C:\\Users\Rui\.PyCharm2018.2\config\scratches\mnistcnn_3
 weights_log_t_cnn=mat["weights_log_t"]
 weights_log_t_del = np.delete(weights_log_t_cnn, slice(0, 1199448), 0)
 weights_log_t_del_cnn = np.delete(weights_log_t_cnn, slice(0, 1199548), 0)
-weights_log_t_del_cnn=normalize(weights_log_t_del_cnn, norm='l2')
+#weights_log_t_del_cnn=normalize(weights_log_t_del_cnn, norm='l2')
 weights_log_t_del_cnn=weights_log_t_del_cnn.transpose()
 for x in range(290):
     temp_m = weights_log_t_del_cnn[x:x + 10]
@@ -39,7 +39,7 @@ for x in range(290):
 mati = scipy.io.loadmat("C:\\Users\Rui\.PyCharm2018.2\config\scratches\imdbcnn_300_sgd.mat")
 weights_log_t_imdbcnn=mati["weights_log_t"]
 weights_log_t_del_imdbcnn = np.delete(weights_log_t_imdbcnn, slice(0, 99900), 0)
-weights_log_t_del_imdbcnn=normalize(weights_log_t_del_imdbcnn, norm='l2')
+#weights_log_t_del_imdbcnn=normalize(weights_log_t_del_imdbcnn, norm='l2')
 weights_log_t_del_imdbcnn=weights_log_t_del_imdbcnn.transpose()
 for x in range(290):
     temp_m = weights_log_t_del_imdbcnn[x:x + 10]
@@ -52,7 +52,7 @@ for x in range(290):
 mat = scipy.io.loadmat("C:\\Users\Rui\.PyCharm2018.2\config\scratches\cifarcnn_300_sgd.mat")
 weights_log_t_cifarcnn=mat["weights_log_t"]
 weights_log_t_del_cifarcnn = np.delete(weights_log_t_cifarcnn, slice(0, 1250044), 0)
-weights_log_t_del_cifarcnn=normalize(weights_log_t_del_cifarcnn, norm='l2')
+#weights_log_t_del_cifarcnn=normalize(weights_log_t_del_cifarcnn, norm='l2')
 weights_log_t_del_cifarcnn=weights_log_t_del_cifarcnn.transpose()
 for x in range(290):
     temp_m = weights_log_t_del_cifarcnn[x:x + 10]

@@ -15,11 +15,12 @@ import os
 
 from keras.callbacks import LambdaCallback
 import numpy as np
+from sklearn.neighbors import KNeighborsRegressor
 
 
 batch_size = 32
 num_classes = 10
-epochs = 5
+epochs = 50
 data_augmentation = True
 num_predictions = 20
 save_dir = os.path.join(os.getcwd(), 'saved_models')
@@ -81,7 +82,7 @@ def weight_prediciton():
     else:
         l = np.vstack([l, model.get_weights()])
 
-
+    '''
     if l.shape[0] == weight_hist_length:
         temp_weight_pool = np.array([])
         for i in range(weight_hist_length):
@@ -94,8 +95,22 @@ def weight_prediciton():
             else:
                 temp_weight_pool = np.vstack([temp_weight_pool, temp_sub_weight_pool])
 
-        print(temp_weight_pool.shape)
+        temp_weight_pool = np.transpose(temp_weight_pool)
+        #w = np.sqrt(sum(temp_weight_pool ** 2))
+        #x_norm2 = temp_weight_pool / w
+        #x_norm2 = np.transpose(x_norm2)
+        predicted_weight = prediction_model.predict(temp_weight_pool)
 
+        temp_n = 0
+        for j in range(l.shape[1]):
+            tmp_shape=l[0][j].shape
+            tmp_length=l[0][j].flatten().shape[0]
+            l[0][j]=np.reshape(predicted_weight[temp_n:temp_n+tmp_length],tmp_shape)
+            temp_n=temp_n+tmp_length
+
+        model.set_weights(l[0])
+        l = np.array([])
+    '''
 
 
 
