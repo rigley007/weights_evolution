@@ -28,7 +28,7 @@ model_name = 'keras_cifar10_trained_model.h5'
 
 
 import pickle
-filename = 'finalized_reg_model.sav'
+filename = 'std01_reg_model.sav'
 prediction_model = pickle.load(open(filename, 'rb'))
 
 

@@ -11,7 +11,13 @@ from sklearn.model_selection import train_test_split
 
 mat = scipy.io.loadmat("C:\\Users\Rui\.PyCharm2018.2\config\scratches\mnistdnn_300_sgd.mat")
 weights_log_t_dnn=mat["weights_log_t"]
-weights_log_t_del_dnn = np.delete(weights_log_t_dnn, slice(0, 668572), 0)
+
+tempstd=np.std(weights_log_t_dnn,1)
+#idx=np.where(tempstd>np.mean(tempstd))
+idx=np.where(tempstd>0.01)
+weights_log_t_del_dnn=weights_log_t_dnn[idx]
+
+#weights_log_t_del_dnn = np.delete(weights_log_t_dnn, slice(0, 660672), 0)
 #weights_log_t_del_dnn=normalize(weights_log_t_del_dnn, norm='l2')
 weights_log_t_del_dnn=weights_log_t_del_dnn.transpose()
 for x in range(290):
@@ -51,7 +57,12 @@ for x in range(290):
 
 mat = scipy.io.loadmat("C:\\Users\Rui\.PyCharm2018.2\config\scratches\cifarcnn_300_sgd.mat")
 weights_log_t_cifarcnn=mat["weights_log_t"]
-weights_log_t_del_cifarcnn = np.delete(weights_log_t_cifarcnn, slice(0, 1250044), 0)
+
+tempstd=np.std(weights_log_t_cifarcnn,1)
+#idx=np.where(tempstd>np.mean(tempstd))
+idx=np.where(tempstd>0.02)
+weights_log_t_del_cifarcnn=weights_log_t_cifarcnn[idx]
+#weights_log_t_del_cifarcnn = np.delete(weights_log_t_cifarcnn, slice(0, 1240044), 0)
 #weights_log_t_del_cifarcnn=normalize(weights_log_t_del_cifarcnn, norm='l2')
 weights_log_t_del_cifarcnn=weights_log_t_del_cifarcnn.transpose()
 for x in range(290):
@@ -73,10 +84,17 @@ sliced_weights_log_merge=sliced_weights_log_dnn
 np.random.seed(1)
 np.random.shuffle(sliced_weights_log_merge)
 
-temp_l= sliced_weights_log_merge.shape[0]
+#tempstd=np.std(sliced_weights_log_merge,1)
+#idx=np.where(tempstd>np.mean(tempstd))
+#idx=np.where(tempstd>0.01)
+#temp_mat=sliced_weights_log_merge[idx]
 
-X=sliced_weights_log_merge[0:temp_l,0:5]
-Y=sliced_weights_log_merge[0:temp_l,9]
+temp_mat=sliced_weights_log_merge
+
+temp_l= temp_mat.shape[0]
+
+X=temp_mat[0:temp_l,0:5]
+Y=temp_mat[0:temp_l,9]
 
 x_train, x_test, y_train, y_test = train_test_split(
 X, Y, test_size=0.33, random_state=42)
