@@ -20,22 +20,22 @@ weights_log_t_del_dnn=weights_log_t_dnn[idx]
 #weights_log_t_del_dnn = np.delete(weights_log_t_dnn, slice(0, 660672), 0)
 #weights_log_t_del_dnn=normalize(weights_log_t_del_dnn, norm='l2')
 weights_log_t_del_dnn=weights_log_t_del_dnn.transpose()
-for x in range(290):
-    temp_m = weights_log_t_del_dnn[x:x + 10]
+for x in range(275):
+    temp_m = weights_log_t_del_dnn[x:x + 25]
     if x == 0:
         sliced_weights_log_dnn = temp_m.transpose()
     else:
         sliced_weights_log_dnn = np.append(sliced_weights_log_dnn, temp_m.transpose(), axis=0)
 
 
-
+'''
 mat = scipy.io.loadmat("C:\\Users\Rui\.PyCharm2018.2\config\scratches\mnistcnn_300_sgd.mat")
 weights_log_t_cnn=mat["weights_log_t"]
 weights_log_t_del = np.delete(weights_log_t_cnn, slice(0, 1199448), 0)
 weights_log_t_del_cnn = np.delete(weights_log_t_cnn, slice(0, 1199548), 0)
 #weights_log_t_del_cnn=normalize(weights_log_t_del_cnn, norm='l2')
 weights_log_t_del_cnn=weights_log_t_del_cnn.transpose()
-for x in range(290):
+for x in range(285):
     temp_m = weights_log_t_del_cnn[x:x + 10]
     if x == 0:
         sliced_weights_log_cnn = temp_m.transpose()
@@ -47,14 +47,14 @@ weights_log_t_imdbcnn=mati["weights_log_t"]
 weights_log_t_del_imdbcnn = np.delete(weights_log_t_imdbcnn, slice(0, 99900), 0)
 #weights_log_t_del_imdbcnn=normalize(weights_log_t_del_imdbcnn, norm='l2')
 weights_log_t_del_imdbcnn=weights_log_t_del_imdbcnn.transpose()
-for x in range(290):
+for x in range(285):
     temp_m = weights_log_t_del_imdbcnn[x:x + 10]
     if x == 0:
         sliced_weights_log_imdbcnn = temp_m.transpose()
     else:
         sliced_weights_log_imdbcnn = np.append(sliced_weights_log_imdbcnn, temp_m.transpose(), axis=0)
 
-
+'''
 mat = scipy.io.loadmat("C:\\Users\Rui\.PyCharm2018.2\config\scratches\cifarcnn_300_sgd.mat")
 weights_log_t_cifarcnn=mat["weights_log_t"]
 
@@ -65,8 +65,8 @@ weights_log_t_del_cifarcnn=weights_log_t_cifarcnn[idx]
 #weights_log_t_del_cifarcnn = np.delete(weights_log_t_cifarcnn, slice(0, 1240044), 0)
 #weights_log_t_del_cifarcnn=normalize(weights_log_t_del_cifarcnn, norm='l2')
 weights_log_t_del_cifarcnn=weights_log_t_del_cifarcnn.transpose()
-for x in range(290):
-    temp_m = weights_log_t_del_cifarcnn[x:x + 10]
+for x in range(275):
+    temp_m = weights_log_t_del_cifarcnn[x:x + 25]
     if x == 0:
         sliced_weights_log_cifarcnn = temp_m.transpose()
     else:
@@ -94,7 +94,7 @@ temp_mat=sliced_weights_log_merge
 temp_l= temp_mat.shape[0]
 
 X=temp_mat[0:temp_l,0:5]
-Y=temp_mat[0:temp_l,9]
+Y=temp_mat[0:temp_l,24]
 
 x_train, x_test, y_train, y_test = train_test_split(
 X, Y, test_size=0.33, random_state=42)
@@ -109,7 +109,7 @@ regr.fit(x_train, y_train)
 print(regr.score(x_test,y_test))
 
 import pickle
-filename = 'finalized_reg_model.sav'
+filename = 'pred25_finalized_reg_model.sav'
 pickle.dump(regr, open(filename, 'wb'))
 loaded_model = pickle.load(open(filename, 'rb'))
 print(loaded_model.score(x_test,y_test))
