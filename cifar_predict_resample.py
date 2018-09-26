@@ -30,7 +30,7 @@ model_name = 'keras_cifar10_trained_model.h5'
 
 
 import pickle
-filename = 'pred15_finalized_reg_model.sav'
+filename = 'pred15_batch_reg_model_std02.sav'
 prediction_model = pickle.load(open(filename, 'rb'))
 
 
@@ -211,7 +211,7 @@ print('Test accuracy:', scores[1])
 import pickle
 
 # save:
-f = open('batchend_epoch200_resample5000_cifar_doc_agu_pred15_std01_history.pckl', 'wb')
+f = open('batchend_epoch200_resample5000_cifar_doc_agu_pred15_batch_std02_history.pckl', 'wb')
 pickle.dump(hist.history, f)
 f.close()
 
