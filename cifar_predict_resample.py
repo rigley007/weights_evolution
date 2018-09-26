@@ -30,7 +30,7 @@ model_name = 'keras_cifar10_trained_model.h5'
 
 
 import pickle
-filename = 'pred15_batch_reg_model_std02.sav'
+filename = 'pred15_finalized_reg_model.sav'
 prediction_model = pickle.load(open(filename, 'rb'))
 
 
@@ -46,8 +46,8 @@ weight_hist_length = 5
 # The data, split between train and test sets:
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 
-x_train,y_train=resample(x_train,y_train, n_samples=5000, random_state=1)
-x_test,y_test=resample(x_test,y_test, n_samples=1000, random_state=1)
+x_train,y_train=resample(x_train,y_train, n_samples=2500, random_state=1)
+x_test,y_test=resample(x_test,y_test, n_samples=500, random_state=1)
 
 
 print('x_train shape:', x_train.shape)
@@ -128,7 +128,7 @@ def weight_prediciton():
 
 
 
-update_weights = LambdaCallback(on_batch_end=lambda batch, logs: weight_prediciton())
+update_weights = LambdaCallback(on_epoch_end=lambda batch, logs: weight_prediciton())
 
 # initiate RMSprop optimizer
 #opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
@@ -211,7 +211,7 @@ print('Test accuracy:', scores[1])
 import pickle
 
 # save:
-f = open('batchend_epoch200_resample5000_cifar_doc_agu_pred15_batch_std02_history.pckl', 'wb')
+f = open('epochend_epoch200_resample2500_cifar_doc_agu_pred15_std01_history.pckl', 'wb')
 pickle.dump(hist.history, f)
 f.close()
 
